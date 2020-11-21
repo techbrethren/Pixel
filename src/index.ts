@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.listen(PORT, () => {
-  console.log(`> We are running on ${PORT}`);
+  console.log(`> We are running on port ${PORT}`);
 });
 
 /*
