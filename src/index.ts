@@ -1,8 +1,14 @@
 import express from "express";
+import * as path from "path";
 import { PORT } from "./config/constants";
 
 const app = express();
 app.use(express.json());
+app.use(express.static("public"));
+
+app.get("/", function (req, res) {
+  res.sendFile("index.html");
+});
 
 app.listen(PORT, () => {
   console.log(`> We are running on port ${PORT}`);

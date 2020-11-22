@@ -11,28 +11,64 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="" />
+    <!-- Facebook Pixel Code -->
     <script>
-    
+      !(function (f, b, e, v, n, t, s) {
+        window.fbq = f.fbq;
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq('consent', 'revoke');
+      fbq("init", "847587105990799");
+      fbq("track", "PageView");
     </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=847587105990799&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
     <script>
       (function wait() {
-        // check for the generic script
-        // easiest check to prevent race condition
-        if (fbq.version > "2.0") {
-          // now check for the custom script
-          // `fbq.on` is now ready (`fbq.once` would be better but has a bug)
-          fbq.on("configLoaded", function (name) {
-            if (name === myId) {
-              myCallback();
-            }
-          });
-        } else {
-          setTimeout(wait, 10);
-        }
+        //first check if the fbq object is defined, then check the version (probably not needed but for good measure
+
+        if (typeof fbq !== "undefined" && fbq.version > "2.9") {
+        console.log(`SENT`)
+          //fire off the call back / tracking event
+          sendOn(); //fbq('track', 'Lead');
+        } else setTimeout(wait, 10);
       })();
+    </script>
+    <script>
+    function sendOn() {
+      //window.location.replace("https://comeuntochrist.org");
+      console.log("TEST")
+    }
     </script>
   </head>
   <body>
+  <p>Hello World</p>
     <!--[if lt IE 7]>
       <p class="browsehappy">
         You are using an <strong>outdated</strong> browser. Please
