@@ -2,8 +2,14 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const fs = require("fs");
+const schedule = require("node-schedule");
 const urlMetadata = require("url-metadata");
+const helmet = require("helmet");
 const PORT = 3000;
+
+let response;
+
+app.use(helmet());
 
 app.get("/", function (req, res) {
   const filePath = path.resolve(__dirname, "./build", "index.html");
@@ -12,26 +18,41 @@ app.get("/", function (req, res) {
     if (err) {
       return console.log(err);
     }
-    data = data.replace(/\$OG_TITLE/g, "Home Page");
-    data = data.replace(/\$OG_DESCRIPTION/g, "Home Page");
-    data = data.replace(/\$OG_WEBSITE/g, "Home Page");
-    data = data.replace(/\$OG_IMAGE/g, "Home Page");
-    data = data.replace(/\$OG_SITENAME/g, "Home Page");
-    let result = data.replace(/\$OG_URL/g, "Home Page");
-    res.send(result);
+    if (response !== undefined) {
+      data = data.replace(/\$OG_TITLE/g, response["og:title"]);
+      data = data.replace(/\$OG_DESCRIPTION/g, response["og:description"]);
+      data = data.replace(/\$OG_WEBSITE/g, response["og:type"]);
+      data = data.replace(/\$OG_IMAGE/g, response["og:image"]);
+      data = data.replace(/\$OG_SITENAME/g, response["site_name"]);
+      let result = data.replace(/\$OG_URL/g, response["og:url"]);
+      res.send(result);
+    } else {
+      res.send(data);
+    }
   });
-  //res.sendFile(path.join(__dirname, "./build", "index.html"));
 });
 
 app.use(express.static(path.join(__dirname, "./build")));
+
+app.get("*", (request, response) => {
+  const filePath = path.resolve(__dirname, "./build", "index.html");
+  response.sendFile(filePath);
+});
+
 app.listen(PORT, () => {
-  console.log(`> Running on PORT ${PORT}`);
+  console.log(`> Running on port ${PORT}`);
+  getJSON();
+});
+
+var runner = schedule.scheduleJob("0 0 * * *", function () {
+  getJSON();
+  console.log(`Running job!`);
 });
 
 function getJSON() {
   urlMetadata("https://comeuntochrist.org").then(
     function (metadata) {
-      console.log(JSON.stringify(metadata));
+      response = metadata;
     },
     function (error) {
       console.log(error);

@@ -6,9 +6,15 @@ import "../Styles/Consents.css";
 
 interface ConsentTypes {
   openInNewTab(url: string): any;
+  setGranted(allowed: boolean): any;
+  cookieName: string;
 }
 
-export default function Consent({ openInNewTab }: ConsentTypes) {
+export default function Consent({
+  openInNewTab,
+  setGranted,
+  cookieName,
+}: ConsentTypes) {
   return (
     <div className="Popup">
       <CookieConsent
@@ -17,7 +23,9 @@ export default function Consent({ openInNewTab }: ConsentTypes) {
         debug={true}
         onAccept={() => {
           ReactPixel.grantConsent();
+          setGranted(true);
         }}
+        cookieName={cookieName}
         overlay
         buttonClasses="btn btn-primary text-capitalize"
         containerClasses="alert alert-warning col-lg-12"
