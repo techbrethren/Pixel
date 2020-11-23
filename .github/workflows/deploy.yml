@@ -12,6 +12,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: Deploy to VPS
       uses: appleboy/ssh-action@master
+      env:
+        USERNAME: ${{ secrets.USERNAME }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         host: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.DIGITAL_USER }}
