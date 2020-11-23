@@ -19,5 +19,6 @@ jobs:
         USERNAME: ${{ secrets.DIGITAL_USER }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.KEY }}
+        debug: true
         script: |
           whoami
