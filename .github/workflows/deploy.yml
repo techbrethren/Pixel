@@ -44,7 +44,7 @@ jobs:
         USERNAME: ${{ secrets.DIGITAL_USER }}
         KEY: ${{ secrets.KEY }}
         PORT: ${{ secrets.PORT }}
-        envs: USERNAME, GITHUB_TOKEN
+        envs: GH_USER, GITHUB_TOKEN
         script: |
           whoami
           mkdir -p Containers/Pixel 
