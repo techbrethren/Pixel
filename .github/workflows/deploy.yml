@@ -37,16 +37,14 @@ jobs:
     - name: Deploy to VPS
       uses: appleboy/ssh-action@master
       env:
-        GITHUB_USERNAME: ${{ secrets.USERNAME }}
+        USERNAME: ${{ secrets.USERNAME }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.DIGITAL_USER }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        envs: 
-          USERNAME: ${{ secrets.USERNAME }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        envs: USERNAME, GITHUB_TOKEN
         script: |
           mkdir -p Containers/Pixel 
           cd Containers/Pixel
