@@ -34,3 +34,21 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: Dockerfile
         tags: latest
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@master
+      env:
+        GITHUB_USERNAME: ${{ secrets.USERNAME }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.DIGITAL_USER }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        envs: USERNAME, GITHUB_TOKEN
+        script: |
+          mkdir -p Containers/Pixel 
+          cd Containers/Pixel
+          docker stop $(docker ps -a -q --filter ancestor=pixel_image:latest)
+          docker login docker.pkg.github.com -u $USERNAME -p $GITHUB_TOKEN
+          docker pull docker.pkg.github.com/techbrethren/pixel/pixel_image:latest
+          docker run -dit -p 4096:3000 docker.pkg.github.com/techbrethren/pixel/pixel_image:latest
