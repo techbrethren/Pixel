@@ -17,8 +17,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         USERNAME: ${{ secrets.DIGITAL_USER }}
-        KEY: ${{ secrets.KEY }}
         PORT: ${{ secrets.PORT }}
-        envs: USERNAME, GITHUB_TOKEN
+        KEY: ${{ secrets.KEY }}
         script: |
           whoami
