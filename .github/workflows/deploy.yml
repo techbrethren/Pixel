@@ -1,0 +1,36 @@
+name: build
+
+on:
+  push:
+    branches: 
+      - deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Create .env file
+      uses: vafinvr/template-env-action@master
+      env:
+        REACT_APP_PIXEL_ID: ${{ secrets.PIXEL_ID }}
+      with:
+        filename: ./.env.replace
+    - name: Use Node.js 13.10
+      uses: actions/setup-node@v1
+      with:
+        node-version: '13.10'
+    - name: Install yarn and run unittest
+      run: |
+        yarn
+      env:
+        CI: true
+    - name: Publish to Github Packages Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: techbrethren/pixel
+        registry: docker.pkg.github.com
+        username: ${{ secrets.GITHUB_USERNAME }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        dockerfile: Dockerfile
+        tags: latest

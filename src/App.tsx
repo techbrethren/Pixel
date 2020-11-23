@@ -12,7 +12,7 @@ const options = {
   autoConfig: true, // set pixel's autoConfig. More info: https://developers.facebook.com/docs/facebook-pixel/advanced/
   debug: false, // enable logs
 };
-ReactPixel.init("847587105990799", undefined, options);
+ReactPixel.init(process.env.REACT_APP_PIXEL_ID!, undefined, options);
 
 if (!Cookies.get(cookie)) {
   ReactPixel.revokeConsent();

@@ -5,11 +5,16 @@ const fs = require("fs");
 const schedule = require("node-schedule");
 const urlMetadata = require("url-metadata");
 const helmet = require("helmet");
-const PORT = 3000;
+
+const PORT = 3001;
 
 let response;
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 app.get("/", function (req, res) {
   const filePath = path.resolve(__dirname, "./build", "index.html");

@@ -20,7 +20,6 @@ export default function Consent({
       <CookieConsent
         disableStyles={true}
         location="top"
-        debug={true}
         onAccept={() => {
           ReactPixel.grantConsent();
           setGranted(true);
