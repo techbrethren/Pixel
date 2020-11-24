@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
 
   fs.readFile(filePath, "utf8", function (err, data) {
     if (err) {
-      return console.log(err);
+      return console.log(`Bot ${err}`);
     }
     if (response !== undefined) {
       data = data.replace(/\$OG_TITLE/g, response["og:title"]);
