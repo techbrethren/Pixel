@@ -49,7 +49,7 @@ jobs:
           whoami
           mkdir -p Containers/Pixel 
           cd Containers/Pixel
-          docker stop $(docker ps -a -q --filter ancestor=pixel_image:latest)
+          docker stop $(docker ps -a -q --filter ancestor=docker.pkg.github.com/techbrethren/pixel/pixel_image:latest)
           docker login docker.pkg.github.com -u $GH_USER -p $GITHUB_TOKEN
           docker pull docker.pkg.github.com/techbrethren/pixel/pixel_image:latest
           docker run -dit -p 4096:3000 docker.pkg.github.com/techbrethren/pixel/pixel_image:latest
