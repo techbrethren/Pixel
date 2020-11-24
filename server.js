@@ -6,7 +6,7 @@ const schedule = require("node-schedule");
 const urlMetadata = require("url-metadata");
 const helmet = require("helmet");
 
-const PORT = 3001;
+const PORT = 3000;
 
 let response;
 
