@@ -27,6 +27,7 @@ const openInNewTab = (url: string) => {
 };
 
 function sendIt() {
+  ReactPixel.grantConsent();
   setTimeout(() => {
     window.location.replace("https://comeuntochrist.org");
   }, 1500);
@@ -81,7 +82,6 @@ function App() {
             href="/#"
             onClick={() => {
               console.log(`Continuing`);
-              ReactPixel.grantConsent();
               sendIt();
             }}
           >
