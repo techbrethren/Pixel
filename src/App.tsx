@@ -19,11 +19,18 @@ if (!Cookies.get(cookie)) {
 }
 
 ReactPixel.pageView();
+ReactPixel.fbq("track", "PageView");
 
 const openInNewTab = (url: string) => {
   const newWindow = window.open(url, "_blank", "noopener,noreferrer");
   if (newWindow) newWindow.opener = null;
 };
+
+function sendIt() {
+  setTimeout(() => {
+    window.location.replace("https://comeuntochrist.org");
+  }, 1500);
+}
 
 function App() {
 
@@ -56,9 +63,7 @@ function App() {
           src="https://www.facebook.com/tr/"
           alt=""
           onLoad={() => {
-            setTimeout(() => {
-              window.location.replace("https://comeuntochrist.org");
-            });
+            sendIt();
           }}
         />
       );
@@ -77,7 +82,7 @@ function App() {
             onClick={() => {
               console.log(`Continuing`);
               ReactPixel.grantConsent();
-              window.location.replace("https://comeuntochrist.org");
+              sendIt();
             }}
           >
             here
