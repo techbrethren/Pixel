@@ -28,6 +28,8 @@ const openInNewTab = (url: string) => {
 
 function sendIt() {
   ReactPixel.grantConsent();
+  ReactPixel.pageView();
+  ReactPixel.fbq("track", "PageView");
   setTimeout(() => {
     window.location.replace("https://comeuntochrist.org");
   }, 3000);
