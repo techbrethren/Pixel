@@ -30,7 +30,7 @@ function sendIt() {
   ReactPixel.grantConsent();
   setTimeout(() => {
     window.location.replace("https://comeuntochrist.org");
-  }, 1500);
+  }, 3000);
 }
 
 function App() {
